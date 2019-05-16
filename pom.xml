@@ -557,6 +557,18 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
+		<!-- For testing against latest Spring snapshots -->
+		<pluginRepository>
+			<id>TUDelft Repository</id>
+			<name>TUDelft Repository</name>
+			<url>http://simulation.tudelft.nl/maven</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
 		<!-- For Spring releases -->
 		<pluginRepository>
 			<id>spring-repository</id>
