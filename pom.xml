@@ -6,11 +6,11 @@
 	<artifactId>greenhouse</artifactId>
 	<name>greenhouse</name>
 	<description>The social destination for Spring developers</description>
-	<url>https://greenhouse.springsource.org</url>
+	<url>http://greenhouse.springsource.org</url>
 	<inceptionYear>2010</inceptionYear>
 	<organization>
 		<name>SpringSource</name>
-		<url>https://www.springsource.org</url>
+		<url>http://www.springsource.org</url>
 	</organization>
 	<packaging>war</packaging>
 	<version>1.0.0.BUILD-SNAPSHOT</version>
@@ -399,7 +399,7 @@
 		<repository>
 			<id>spring-snapshot</id>
 			<name>SpringSource Snapshot Repository</name>
-			<url>https://repo.springsource.org/snapshot</url>
+			<url>http://repo.springsource.org/snapshot</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
@@ -411,7 +411,7 @@
 		<repository>
 			<id>spring-repository</id>
 			<name>SpringSource Repository</name>
-			<url>https://repo.springsource.org/release</url>
+			<url>http://repo.springsource.org/release</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -420,7 +420,7 @@
 		<repository>
 			<id>spring-milestone</id>
 			<name>SpringSource Milestone Repository</name>
-			<url>https://repo.springsource.org/milestone</url>
+			<url>http://repo.springsource.org/milestone</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -445,43 +445,6 @@
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.3.1</version>
-				<dependencies>
-					<!-- Note: Maven 2.0.9 or > required or these are ignored (MNG-2972) -->
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjrt</artifactId>
-						<version>${org.aspectj-version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.aspectj</groupId>
-						<artifactId>aspectjtools</artifactId>
-						<version>${org.aspectj-version}</version>
-					</dependency>
-				</dependencies>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-							<goal>test-compile</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<outxml>true</outxml>
-					<aspectLibraries>
-						<aspectLibrary>
-							<groupId>org.springframework</groupId>
-							<artifactId>spring-aspects</artifactId>
-						</aspectLibrary>
-					</aspectLibraries>
-					<source>1.6</source>
-					<target>1.6</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -528,46 +491,6 @@
 				<configuration>
 					<contextPath>greenhouse</contextPath>
 				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.4</version>
-				<executions>
-					<execution>
-						<id>publish</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<scp
-									file="${project.build.directory}/${project.build.finalName}.${project.packaging}"
-									todir="${publish.username}@${publish.host}:/tmp/greenhouse.war"
-									keyfile="${publish.keyfile}" trust="true" />
-								<sshexec host="${publish.host}" username="${publish.username}"
-									command="${publish.serverPath}/bin/tcruntime-ctl.sh stop"
-									keyfile="${publish.keyfile}" trust="true" failonerror="false" />
-								<sshexec host="${publish.host}" username="${publish.username}"
-									command="rm -rf ${publish.serverPath}/webapps/*" keyfile="${publish.keyfile}"
-									trust="true" />
-								<sshexec host="${publish.host}" username="${publish.username}"
-									command="mv /tmp/greenhouse.war ${publish.serverPath}/webapps/ROOT.war"
-									keyfile="${publish.keyfile}" trust="true" />
-								<sshexec host="${publish.host}" username="${publish.username}"
-									command="${publish.serverPath}/bin/tcruntime-ctl.sh start"
-									keyfile="${publish.keyfile}" trust="true" />
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.ant</groupId>
-						<artifactId>ant-jsch</artifactId>
-						<version>1.8.1</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -626,7 +549,7 @@
 		<pluginRepository>
 			<id>spring-snapshot</id>
 			<name>SpringSource Snapshot Repository</name>
-			<url>https://repo.springsource.org/snapshot</url>
+			<url>http://repo.springsource.org/snapshot</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
@@ -638,7 +561,7 @@
 		<pluginRepository>
 			<id>spring-repository</id>
 			<name>SpringSource Repository</name>
-			<url>https://repo.springsource.org/release</url>
+			<url>http://repo.springsource.org/release</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -647,20 +570,25 @@
 		<pluginRepository>
 			<id>spring-milestone</id>
 			<name>SpringSource Milestone Repository</name>
-			<url>https://repo.springsource.org/milestone</url>
+			<url>http://repo.springsource.org/milestone</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
 
-	<distributionManagement>
-		<!-- Temporary until we have a need to publish to a remote release repository -->
-		<snapshotRepository>
-			<id>localPublish</id>
-			<name>localPublish</name>
-			<url>file://${user.home}/local-maven-publish-repository</url>
-		</snapshotRepository>
-	</distributionManagement>
+
+<distributionManagement>
+  <repository>
+    <id>releases</id>
+    <url>http://127.0.0.1:8081/nexus/content/repositories/releases</url>
+  </repository>
+    
+  <snapshotRepository>
+    <id>snapshots</id>
+    <url>http://127.0.0.1:8081/nexus/content/repositories/snapshots</url>
+ </snapshotRepository>
+</distributionManagement>
+
 
 </project>
