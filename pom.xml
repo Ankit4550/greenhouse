@@ -559,7 +559,7 @@
 		</pluginRepository>
 		<!-- For testing against latest Spring snapshots -->
 		<pluginRepository>
-			<id>TUDelft Repository</id>
+			<id>TUDelft</id>
 			<name>TUDelft Repository</name>
 			<url>http://simulation.tudelft.nl/maven</url>
 			<releases>
